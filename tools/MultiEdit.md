@@ -12,7 +12,7 @@ To make multiple file edits, provide the following:
 2. edits: An array of edit operations to perform, where each edit contains:
    - old_string: The text to replace (must match the file contents exactly, including all whitespace and indentation)
    - new_string: The edited text to replace the old_string
-   - expected_replacements: The number of replacements you expect to make. Defaults to 1 if not specified.
+   - replace_all: Replace all occurences of old_string. This parameter is optional and defaults to false.
 
 IMPORTANT:
 - All edits are applied in sequence, in the order they are provided
@@ -27,8 +27,6 @@ CRITICAL REQUIREMENTS:
 3. Plan your edits carefully to avoid conflicts between sequential operations
 
 WARNING:
-- The tool will fail if edits.old_string matches multiple locations and edits.expected_replacements isn't specified
-- The tool will fail if the number of matches doesn't equal edits.expected_replacements when it's specified
 - The tool will fail if edits.old_string doesn't match the file contents exactly (including whitespace)
 - The tool will fail if edits.old_string and edits.new_string are the same
 - Since edits are applied in sequence, ensure that earlier edits don't affect the text that later edits are trying to find
@@ -38,6 +36,7 @@ When making edits:
 - Do not leave the code in a broken state
 - Always use absolute file paths (starting with /)
 - Only use emojis if the user explicitly requests it. Avoid adding emojis to files unless asked.
+- Use replace_all for replacing and renaming strings across the file. This parameter is useful if you want to rename a variable for instance.
 
 If you want to create a new file, use:
 - A new file path, including dir name if needed
@@ -67,10 +66,10 @@ If you want to create a new file, use:
             "type": "string",
             "description": "The text to replace it with"
           },
-          "expected_replacements": {
-            "type": "number",
-            "default": 1,
-            "description": "The expected number of replacements to perform. Defaults to 1 if not specified."
+          "replace_all": {
+            "type": "boolean",
+            "default": false,
+            "description": "Replace all occurences of old_string (default false)."
           }
         },
         "required": [
