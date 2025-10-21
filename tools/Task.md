@@ -5,11 +5,9 @@ Launch a new agent to handle complex, multi-step tasks autonomously.
 Available agent types and the tools they have access to:
 - general-purpose: General-purpose agent for researching complex questions, searching for code, and executing multi-step tasks. When you are searching for a keyword or file and are not confident that you will find the right match in the first few tries use this agent to perform the search for you. (Tools: *)
 - statusline-setup: Use this agent to configure the user's Claude Code status line setting. (Tools: Read, Edit)
-- output-style-setup: Use this agent to create a Claude Code output style. (Tools: Read, Write, Edit, Glob, LS, Grep)
+- output-style-setup: Use this agent to create a Claude Code output style. (Tools: Read, Write, Edit, Glob, Grep)
 
 When using the Task tool, you must specify a subagent_type parameter to select which agent type to use.
-
-
 
 When NOT to use the Agent tool:
 - If you want to read a specific file path, use the Read or Glob tool instead of the Agent tool, to find the match more quickly
