@@ -11,6 +11,10 @@ Reads a Jupyter notebook (.ipynb file) and returns all of the cells with their o
     "notebook_path": {
       "type": "string",
       "description": "The absolute path to the Jupyter notebook file to read (must be absolute, not relative)"
+    },
+    "cell_id": {
+      "type": "string",
+      "description": "The ID of a specific cell to read. If not provided, all cells will be read."
     }
   },
   "required": [

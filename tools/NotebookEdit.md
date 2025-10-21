@@ -12,9 +12,9 @@ Completely replaces the contents of a specific cell in a Jupyter notebook (.ipyn
       "type": "string",
       "description": "The absolute path to the Jupyter notebook file to edit (must be absolute, not relative)"
     },
-    "cell_number": {
-      "type": "number",
-      "description": "The index of the cell to edit (0-based)"
+    "cell_id": {
+      "type": "string",
+      "description": "The ID of the cell to edit. When inserting a new cell, the new cell will be inserted after the cell with this ID, or at the beginning if not specified."
     },
     "new_source": {
       "type": "string",
@@ -40,7 +40,6 @@ Completely replaces the contents of a specific cell in a Jupyter notebook (.ipyn
   },
   "required": [
     "notebook_path",
-    "cell_number",
     "new_source"
   ],
   "additionalProperties": false,
