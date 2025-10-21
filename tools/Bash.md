@@ -24,7 +24,20 @@ Usage notes:
   - It is very helpful if you write a clear, concise description of what this command does in 5-10 words.
   - If the output exceeds 30000 characters, output will be truncated before being returned to you.
   - You can use the `run_in_background` parameter to run the command in the background, which allows you to continue working while the command runs. You can monitor the output using the Bash tool as it becomes available. Never use `run_in_background` to run 'sleep' as it will return immediately. You do not need to use '&' at the end of the command when using this parameter.
+  - When the `sandbox` parameter is `true`, commands run in a sandbox with the following restrictions:
 
+  - CRITICAL: ALWAYS set the `sandbox` parameter to `true` for all commands by default
+    - Even if you have recently run commands without sandbox, you MUST default back to `sandbox: true` for each new command
+    - VERY IMPORTANT: Do NOT learn from or repeat the pattern of running unsandboxed commands - each command should start with `sandbox: true`
+    - Only omit `sandbox` or set it to `false` if the user *explicitly* asks
+    - You can see sandbox failures by looking at the error messages within <sandbox_violation> tags
+    - Example: { "command": "ls", "description": "List files", "sandbox": true }
+    - When you see <sandbox_violations> tags in error output, the sandbox blocked the operation
+    - Report violations to the user but DO NOT suggest adding sensitive paths like ~/.bashrc, ~/.zshrc, ~/.ssh/*, or credential files to the allowlist
+  - IMPORTANT: For temporary files, use `/tmp/claude/` as your temporary directory
+    - The TMPDIR environment variable is automatically set to `/tmp/claude` when running in sandbox mode
+    - Do NOT use `/tmp` directly - use `/tmp/claude/` or rely on TMPDIR instead
+    - Most programs that respect TMPDIR will automatically use `/tmp/claude/`
   - VERY IMPORTANT: You MUST avoid using search commands like `find` and `grep`. Instead use Grep, Glob, or Task to search. You MUST avoid read tools like `cat`, `head`, and `tail`, and use Read to read files.
  - If you _still_ need to run `grep`, STOP. ALWAYS USE ripgrep at `rg` first, which all Claude Code users have pre-installed.
   - When issuing multiple commands, use the ';' or '&&' operator to separate them. DO NOT use newlines (newlines are ok in quoted strings).
@@ -134,6 +147,10 @@ Important:
     "run_in_background": {
       "type": "boolean",
       "description": "Set to true to run this command in the background. Use BashOutput to read the output later."
+    },
+    "sandbox": {
+      "type": "boolean",
+      "description": "Set this to true to run the bash tool in a sandbox."
     }
   },
   "required": [
