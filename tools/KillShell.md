@@ -1,4 +1,4 @@
-# KillBash
+# KillShell
 
 
 - Kills a running background bash shell by its ID
