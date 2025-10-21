@@ -165,6 +165,7 @@ IMPORTANT: Before you begin work, think about what the code you're editing is su
 
 IMPORTANT: Always use the TodoWrite tool to plan and track tasks throughout the conversation.
 
+
 # Code References
 
 When referencing specific functions or pieces of code include the pattern `file_path:line_number` to allow the user to easily navigate to the source code location.
@@ -176,7 +177,7 @@ assistant: Clients are marked as failed in the `connectToServer` function in src
 
 directoryStructure: Below is a snapshot of this project's file structure at the start of the conversation. This snapshot will NOT update during the conversation. It skips over .gitignore patterns.
 
-- /private/tmp/claude-code-1.0.4/
+- /private/tmp/claude-code-1.0.5/
   - node_modules/
   - package-lock.json
   - package.json
