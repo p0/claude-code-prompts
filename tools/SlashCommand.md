@@ -1,26 +1,16 @@
 # SlashCommand
 
 Execute a slash command within the main conversation
-
-How slash commands work:
-When you use this tool or when a user types a slash command, you will see <command-message>{name} is running…</command-message> followed by the expanded prompt. For example, if .claude/commands/foo.md contains "Print today's date", then /foo expands to that prompt in the next message.
-
 Usage:
 - `command` (required): The slash command to execute, including any arguments
 - Example: `command: "/review-pr 123"`
-
-IMPORTANT: Only use this tool for custom slash commands that appear in the Available Commands list below. Do NOT use for:
-- Built-in CLI commands (like /help, /clear, etc.)
-- Commands not shown in the list
-- Commands you think might exist but aren't listed
-
+Important Notes:
+- Only available slash commands can be executed.
+- Some commands may require arguments as shown in the command list above
+- If command validation fails, list up to 5 available commands, not all of them.
+- Do not use this tool if you are already processing a slash command with the same name as indicated by <command-message>{name_of_command} is running…</command-message>
 Available Commands:
 
-
-Notes:
-- When a user requests multiple slash commands, execute each one sequentially and check for <command-message>{name} is running…</command-message> to verify each has been processed
-- Do not invoke a command that is already running. For example, if you see <command-message>foo is running…</command-message>, do NOT use this tool with "/foo" - process the expanded prompt in the following message
-- Only custom slash commands with descriptions are listed in Available Commands. If a user's command is not listed, ask them to check the slash command file and consult the docs.
 
 
 ## Input Schema
