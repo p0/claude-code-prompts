@@ -10,6 +10,7 @@
 Usage notes:
   - Domain filtering is supported to include or block specific websites
   - Web search is only available in the US
+  - Account for "Today's date" in <env>
 
 
 ## Input Schema
