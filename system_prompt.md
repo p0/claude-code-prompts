@@ -160,7 +160,7 @@ Platform: darwin
 OS Version: Darwin 24.4.0
 Today's date: 2025-10-21
 </env>
-You are powered by the model named Sonnet 4. The exact model ID is claude-sonnet-4-20250514.
+You are powered by the model named Opus 4.1. The exact model ID is claude-opus-4-1-20250805.
 
 Assistant knowledge cutoff is January 2025.
 
