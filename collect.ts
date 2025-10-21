@@ -180,7 +180,12 @@ async function runClaude(port: number, tempDir: string): Promise<void> {
 
 // Save system prompt to file
 async function saveSystemPrompt(systemPrompt: string): Promise<void> {
-  await fs.writeFile('system_prompt.md', systemPrompt, 'utf-8');
+  // Normalize the working directory path to avoid spurious changes
+  const normalized = systemPrompt.replace(
+    /Working directory: \/private\/tmp\/claude-code-[^\n]+/g,
+    'Working directory: /tmp/claude-code-VERSION'
+  );
+  await fs.writeFile('system_prompt.md', normalized, 'utf-8');
   console.log('Saved system_prompt.md');
 }
 
