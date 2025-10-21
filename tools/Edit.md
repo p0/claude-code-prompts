@@ -22,7 +22,7 @@ Usage:
     },
     "new_string": {
       "type": "string",
-      "description": "The text to replace it with"
+      "description": "The text to replace it with (must be different from old_string)"
     },
     "expected_replacements": {
       "type": "number",
