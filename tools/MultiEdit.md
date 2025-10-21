@@ -37,6 +37,7 @@ When making edits:
 - Ensure all edits result in idiomatic, correct code
 - Do not leave the code in a broken state
 - Always use absolute file paths (starting with /)
+- Only use emojis if the user explicitly requests it. Avoid adding emojis to files unless asked.
 
 If you want to create a new file, use:
 - A new file path, including dir name if needed
