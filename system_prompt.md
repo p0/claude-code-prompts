@@ -171,7 +171,7 @@ assistant: Clients are marked as failed in the `connectToServer` function in src
 
 directoryStructure: Below is a snapshot of this project's file structure at the start of the conversation. This snapshot will NOT update during the conversation. It skips over .gitignore patterns.
 
-- /private/tmp/claude-code-1.0.1/
+- /private/tmp/claude-code-1.0.2/
   - node_modules/
   - package-lock.json
   - package.json
