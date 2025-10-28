@@ -7,6 +7,7 @@ Available agent types and the tools they have access to:
 - statusline-setup: Use this agent to configure the user's Claude Code status line setting. (Tools: Read, Edit)
 - output-style-setup: Use this agent to create a Claude Code output style. (Tools: Read, Write, Edit, Glob, Grep)
 - Explore: Fast agent specialized for exploring codebases. Use this when you need to quickly find files by patterns (eg. "src/components/**/*.tsx"), search code for keywords (eg. "API endpoints"), or answer questions about the codebase (eg. "how do API endpoints work?"). When calling this agent, specify the desired thoroughness level: "quick" for basic searches, "medium" for moderate exploration, or "very thorough" for comprehensive analysis across multiple locations and naming conventions. (Tools: Glob, Grep, Read, Bash)
+- Plan: Fast agent specialized for exploring codebases. Use this when you need to quickly find files by patterns (eg. "src/components/**/*.tsx"), search code for keywords (eg. "API endpoints"), or answer questions about the codebase (eg. "how do API endpoints work?"). When calling this agent, specify the desired thoroughness level: "quick" for basic searches, "medium" for moderate exploration, or "very thorough" for comprehensive analysis across multiple locations and naming conventions. (Tools: Glob, Grep, Read, Bash)
 
 When using the Task tool, you must specify a subagent_type parameter to select which agent type to use.
 
@@ -20,7 +21,6 @@ When NOT to use the Agent tool:
 Usage notes:
 - Launch multiple agents concurrently whenever possible, to maximize performance; to do that, use a single message with multiple tool uses
 - When the agent is done, it will return a single message back to you. The result returned by the agent is not visible to the user. To show the user the result, you should send a text message back to the user with a concise summary of the result.
-- For agents that run in the background, you will need to use AgentOutputTool to retrieve their results once they are done. You can continue to work while async agents run in the background - when you need their results to continue you can use AgentOutputTool in blocking mode to pause and wait for their results.
 - Each agent invocation is stateless. You will not be able to send additional messages to the agent, nor will the agent be able to communicate with you outside of its final report. Therefore, your prompt should contain a highly detailed task description for the agent to perform autonomously and you should specify exactly what information the agent should return back to you in its final and only message to you.
 - The agent's outputs should generally be trusted
 - Clearly tell the agent whether you expect it to write code or just to do research (search, file reads, web fetches, etc.), since it is not aware of the user's intent
@@ -81,6 +81,19 @@ assistant: "I'm going to use the Task tool to launch the with the greeting-respo
     "subagent_type": {
       "type": "string",
       "description": "The type of specialized agent to use for this task"
+    },
+    "model": {
+      "type": "string",
+      "enum": [
+        "sonnet",
+        "opus",
+        "haiku"
+      ],
+      "description": "Optional model to use for this agent. If not specified, inherits from parent. Prefer haiku for quick, straightforward tasks to minimize cost and latency."
+    },
+    "resume": {
+      "type": "string",
+      "description": "Optional agent ID to resume from. If provided, the agent will continue from the previous execution transcript."
     }
   },
   "required": [
