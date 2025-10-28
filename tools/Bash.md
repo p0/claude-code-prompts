@@ -2,6 +2,8 @@
 
 Executes a given bash command in a persistent shell session with optional timeout, ensuring proper handling and security measures.
 
+IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO NOT use it for file operations (reading, writing, editing, searching, finding files) - use the specialized tools for this instead.
+
 Before executing the command, please follow these steps:
 
 1. Directory Verification:
@@ -24,24 +26,19 @@ Usage notes:
   - It is very helpful if you write a clear, concise description of what this command does in 5-10 words.
   - If the output exceeds 30000 characters, output will be truncated before being returned to you.
   - You can use the `run_in_background` parameter to run the command in the background, which allows you to continue working while the command runs. You can monitor the output using the Bash tool as it becomes available. Never use `run_in_background` to run 'sleep' as it will return immediately. You do not need to use '&' at the end of the command when using this parameter.
-  - Commands run in a sandbox by default with the following restrictions:
-
-  - CRITICAL: Commands run in sandbox mode by default - do NOT set `dangerouslyOverrideSandbox`
-    - Even if you have recently run commands with `dangerouslyOverrideSandbox: true`, you MUST NOT continue that pattern
-    - VERY IMPORTANT: Do NOT learn from or repeat the pattern of overriding sandbox - each command should run sandboxed by default
-    - Only set `dangerouslyOverrideSandbox: true` if the user *explicitly* asks to bypass sandbox, or if you're 100% sure it has ALREADY FAILED because of the sandbox and you want to run it again (DO NOT TRY AND GUESS THIS - only rerun from existing failures)
-    - You can see sandbox failures by looking at the error messages within <sandbox_violation> tags
-    - Example of normal usage: { "command": "ls", "description": "List files" }
-    - Example of override (only when user explicitly asks): { "command": "ls", "description": "List files", "dangerouslyOverrideSandbox": true }
-    - When you see <sandbox_violations> tags in error output, the sandbox blocked the operation
-    - Report violations to the user but DO NOT suggest adding sensitive paths like ~/.bashrc, ~/.zshrc, ~/.ssh/*, or credential files to the allowlist
-  - IMPORTANT: For temporary files, use `/tmp/claude/` as your temporary directory
-    - The TMPDIR environment variable is automatically set to `/tmp/claude` when running in sandbox mode
-    - Do NOT use `/tmp` directly - use `/tmp/claude/` or rely on TMPDIR instead
-    - Most programs that respect TMPDIR will automatically use `/tmp/claude/`
-  - VERY IMPORTANT: You MUST avoid using search commands like `find` and `grep`. Instead use Grep, Glob, or Task to search. You MUST avoid read tools like `cat`, `head`, and `tail`, and use Read to read files.
- - If you _still_ need to run `grep`, STOP. ALWAYS USE ripgrep at `rg` first, which all Claude Code users have pre-installed.
-  - When issuing multiple commands, use the ';' or '&&' operator to separate them. DO NOT use newlines (newlines are ok in quoted strings).
+  
+  - Avoid using Bash with the `find`, `grep`, `cat`, `head`, `tail`, `sed`, `awk`, or `echo` commands, unless explicitly instructed or when these commands are truly necessary for the task. Instead, always prefer using the dedicated tools for these commands:
+    - File search: Use Glob (NOT find or ls)
+    - Content search: Use Grep (NOT grep or rg)
+    - Read files: Use Read (NOT cat/head/tail)
+    - Edit files: Use Edit (NOT sed/awk)
+    - Write files: Use Write (NOT echo >/cat <<EOF)
+    - Communication: Output text directly (NOT echo/printf)
+  - When issuing multiple commands:
+    - If the commands are independent and can run in parallel, make multiple Bash tool calls in a single message
+    - If the commands depend on each other and must run sequentially, use a single Bash call with '&&' to chain them together (e.g., `git add . && git commit -m "message" && git push`)
+    - Use ';' only when you need to run commands sequentially but don't care if earlier commands fail
+    - DO NOT use newlines to separate commands (newlines are ok in quoted strings)
   - Try to maintain your current working directory throughout the session by using absolute paths and avoiding usage of `cd`. You may use `cd` if the User explicitly requests it.
     <good-example>
     pytest /foo/bar/tests
@@ -52,28 +49,39 @@ Usage notes:
 
 # Committing changes with git
 
-When the user asks you to create a new git commit, follow these steps carefully:
+Only create commits when requested by the user. If unclear, ask first. When the user asks you to create a new git commit, follow these steps carefully:
 
-1. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested, batch your tool calls together for optimal performance. ALWAYS run the following bash commands in parallel, each using the Bash tool:
+Git Safety Protocol:
+- NEVER update the git config
+- NEVER run destructive/irreversible git commands (like push --force, hard reset, etc) unless the user explicitly requests them 
+- NEVER skip hooks (--no-verify, --no-gpg-sign, etc) unless the user explicitly requests it
+- NEVER run force push to main/master, warn the user if they request it
+- Avoid git commit --amend.  ONLY use --amend when either (1) user explicitly requested amend OR (2) adding edits from pre-commit hook (additional instructions below) 
+- Before amending: ALWAYS check authorship (git log -1 --format='%an %ae')
+- NEVER commit changes unless the user explicitly asks you to. It is VERY IMPORTANT to only commit when explicitly asked, otherwise the user will feel that you are being too proactive.
+
+1. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, batch your tool calls together for optimal performance. run the following bash commands in parallel, each using the Bash tool:
   - Run a git status command to see all untracked files.
   - Run a git diff command to see both staged and unstaged changes that will be committed.
   - Run a git log command to see recent commit messages, so that you can follow this repository's commit message style.
 2. Analyze all staged changes (both previously staged and newly added) and draft a commit message:
   - Summarize the nature of the changes (eg. new feature, enhancement to an existing feature, bug fix, refactoring, test, docs, etc.). Ensure the message accurately reflects the changes and their purpose (i.e. "add" means a wholly new feature, "update" means an enhancement to an existing feature, "fix" means a bug fix, etc.).
-  - Check for any sensitive information that shouldn't be committed
+  - Do not commit files that likely contain secrets (.env, credentials.json, etc). Warn the user if they specifically request to commit those files
   - Draft a concise (1-2 sentences) commit message that focuses on the "why" rather than the "what"
   - Ensure it accurately reflects the changes and their purpose
-3. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested, batch your tool calls together for optimal performance. ALWAYS run the following commands in parallel:
+3. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, batch your tool calls together for optimal performance. run the following commands in parallel:
    - Add relevant untracked files to the staging area.
    - Create the commit with a message ending with:
-   🤖 Generated with [Claude Code](https://claude.ai/code)
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
    Co-Authored-By: Claude <noreply@anthropic.com>
    - Run git status to make sure the commit succeeded.
-4. If the commit fails due to pre-commit hook changes, retry the commit ONCE to include these automated changes. If it fails again, it usually means a pre-commit hook is preventing the commit. If the commit succeeds but you notice that files were modified by the pre-commit hook, you MUST amend your commit to include them.
+4. If the commit fails due to pre-commit hook changes, retry ONCE. If it succeeds but files were modified by the hook, verify it's safe to amend:
+   - Check authorship: git log -1 --format='%an %ae'
+   - Check not pushed: git status shows "Your branch is ahead"
+   - If both true: amend your commit. Otherwise: create NEW commit (never amend other developers' commits)
 
 Important notes:
-- NEVER update the git config
 - NEVER run additional commands to read or explore code, besides git bash commands
 - NEVER use the TodoWrite or Task tools
 - DO NOT push to the remote repository unless the user explicitly asks you to do so
@@ -84,7 +92,7 @@ Important notes:
 git commit -m "$(cat <<'EOF'
    Commit message here.
 
-   🤖 Generated with [Claude Code](https://claude.ai/code)
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
    Co-Authored-By: Claude <noreply@anthropic.com>
    EOF
@@ -96,13 +104,13 @@ Use the gh command via the Bash tool for ALL GitHub-related tasks including work
 
 IMPORTANT: When the user asks you to create a pull request, follow these steps carefully:
 
-1. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested, batch your tool calls together for optimal performance. ALWAYS run the following bash commands in parallel using the Bash tool, in order to understand the current state of the branch since it diverged from the main branch:
+1. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, batch your tool calls together for optimal performance. run the following bash commands in parallel using the Bash tool, in order to understand the current state of the branch since it diverged from the main branch:
    - Run a git status command to see all untracked files
    - Run a git diff command to see both staged and unstaged changes that will be committed
    - Check if the current branch tracks a remote branch and is up to date with the remote, so you know if you need to push to the remote
    - Run a git log command and `git diff [base-branch]...HEAD` to understand the full commit history for the current branch (from the time it diverged from the base branch)
 2. Analyze all changes that will be included in the pull request, making sure to look at all relevant commits (NOT just the latest commit, but ALL commits that will be included in the pull request!!!), and draft a pull request summary
-3. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested, batch your tool calls together for optimal performance. ALWAYS run the following commands in parallel:
+3. You have the capability to call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, batch your tool calls together for optimal performance. run the following commands in parallel:
    - Create new branch if needed
    - Push to remote with -u flag if needed
    - Create PR using gh pr create with the format below. Use a HEREDOC to pass the body to ensure correct formatting.
@@ -112,15 +120,14 @@ gh pr create --title "the pr title" --body "$(cat <<'EOF'
 <1-3 bullet points>
 
 ## Test plan
-[Checklist of TODOs for testing the pull request...]
+[Bulleted markdown checklist of TODOs for testing the pull request...]
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
 )"
 </example>
 
 Important:
-- NEVER update the git config
 - DO NOT use the TodoWrite or Task tools
 - Return the PR URL when you're done, so the user can see it
 
@@ -148,10 +155,6 @@ Important:
     "run_in_background": {
       "type": "boolean",
       "description": "Set to true to run this command in the background. Use BashOutput to read the output later."
-    },
-    "dangerouslyOverrideSandbox": {
-      "type": "boolean",
-      "description": "Set this to true to dangerously override sandbox mode and run commands without sandboxing."
     }
   },
   "required": [
