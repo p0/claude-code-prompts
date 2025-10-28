@@ -155,7 +155,7 @@ The assistant did not use the todo list because this is a single command executi
 2. **Task Management**:
    - Update task status in real-time as you work
    - Mark tasks complete IMMEDIATELY after finishing (don't batch completions)
-   - Only have ONE task in_progress at any time
+   - Exactly ONE task must be in_progress at any time (not less, not more)
    - Complete current tasks before starting new ones
    - Remove tasks that are no longer relevant from the list entirely
 
@@ -199,15 +199,11 @@ When in doubt, use this tool. Being proactive with task management demonstrates 
               "in_progress",
               "completed"
             ]
-          },
-          "id": {
-            "type": "string"
           }
         },
         "required": [
           "content",
-          "status",
-          "id"
+          "status"
         ],
         "additionalProperties": false
       },
