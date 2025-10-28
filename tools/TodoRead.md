@@ -21,7 +21,7 @@ Usage:
 {
   "type": "object",
   "properties": {},
-  "additionalProperties": false,
+  "additionalProperties": true,
   "description": "No input is required, leave this field blank. NOTE that we do not require a dummy object, placeholder string or a key like \"input\" or \"empty\". LEAVE IT BLANK.",
   "$schema": "http://json-schema.org/draft-07/schema#"
 }
