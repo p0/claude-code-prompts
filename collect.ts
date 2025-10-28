@@ -236,6 +236,16 @@ async function getVersions(): Promise<string[]> {
   return JSON.parse(stdout);
 }
 
+// Check if a version has already been processed
+async function isVersionProcessed(version: string): Promise<boolean> {
+  try {
+    const { stdout } = await execAsync(`git log --oneline --grep="Add metadata for @anthropic-ai/claude-code@${version}$"`);
+    return stdout.trim().length > 0;
+  } catch (error) {
+    return false;
+  }
+}
+
 // Process a single version
 async function processVersion(version: string, port: number): Promise<void> {
   console.log(`\n${'='.repeat(60)}`);
@@ -307,6 +317,15 @@ async function main() {
     for (let i = 0; i < versions.length; i++) {
       const version = versions[i];
       console.log(`\nProgress: ${i + 1}/${versions.length}`);
+
+      // Skip if already processed
+      const alreadyProcessed = await isVersionProcessed(version);
+      if (alreadyProcessed) {
+        console.log(`⊘ Skipping ${version} (already processed)`);
+        continue;
+      }
+      console.log(`→ Processing ${version} (new version)`);
+
 
       try {
         await processVersion(version, port);
