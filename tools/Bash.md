@@ -35,7 +35,6 @@ Usage notes:
     cd /foo/bar && pytest tests
     </bad-example>
 
-
 # Committing changes with git
 
 When the user asks you to create a new git commit, follow these steps carefully:
