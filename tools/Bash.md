@@ -157,7 +157,7 @@ Important:
       "type": "boolean",
       "description": "Set to true to run this command in the background. Use BashOutput to read the output later."
     },
-    "dangerouslyOverrideSandbox": {
+    "dangerouslyDisableSandbox": {
       "type": "boolean",
       "description": "Set this to true to dangerously override sandbox mode and run commands without sandboxing."
     }
