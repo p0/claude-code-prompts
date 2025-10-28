@@ -42,7 +42,7 @@ assistant: ls
 
 <example>
 user: what command should I run to watch files in the current directory?
-assistant: [use the ls tool to list the files in the current directory, then read docs/commands in the relevant file to find out how to watch files]
+assistant: [runs ls to list the files in the current directory, then read docs/commands in the relevant file to find out how to watch files]
 npm run dev
 </example>
 

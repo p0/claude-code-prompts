@@ -200,14 +200,6 @@ When in doubt, use this tool. Being proactive with task management demonstrates 
               "completed"
             ]
           },
-          "priority": {
-            "type": "string",
-            "enum": [
-              "high",
-              "medium",
-              "low"
-            ]
-          },
           "id": {
             "type": "string"
           }
@@ -215,7 +207,6 @@ When in doubt, use this tool. Being proactive with task management demonstrates 
         "required": [
           "content",
           "status",
-          "priority",
           "id"
         ],
         "additionalProperties": false
