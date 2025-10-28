@@ -302,15 +302,32 @@ async function main() {
   // Check for test mode (only process first 3 versions)
   const isTestMode = process.argv.includes('--test');
 
+  // Check for start-from flag
+  const startFromIndex = process.argv.findIndex(arg => arg.startsWith('--start-from='));
+  const startFromVersion = startFromIndex !== -1
+    ? process.argv[startFromIndex].split('=')[1]
+    : null;
+
   try {
     // Get all versions
     const allVersions = await getVersions();
-    // In test mode, test recent versions instead of old ones
-    const versions = isTestMode ? allVersions.slice(-3) : allVersions;
+
+    // Filter versions based on flags
+    let versions = allVersions;
 
     if (isTestMode) {
+      versions = allVersions.slice(-3);
       console.log(`TEST MODE: Processing last ${versions.length} versions only`);
+    } else if (startFromVersion) {
+      const startIndex = allVersions.indexOf(startFromVersion);
+      if (startIndex === -1) {
+        console.error(`Version ${startFromVersion} not found in version list`);
+        process.exit(1);
+      }
+      versions = allVersions.slice(startIndex);
+      console.log(`Starting from version ${startFromVersion} (skipping ${startIndex} versions)`);
     }
+
     console.log(`Found ${allVersions.length} versions total, processing ${versions.length}`);
 
     // Process each version in order (oldest to newest)

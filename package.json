@@ -4,7 +4,8 @@
   "description": "Collects system prompts and tool definitions from claude-code versions",
   "type": "module",
   "scripts": {
-    "start": "tsx collect.ts"
+    "start": "tsx collect.ts",
+    "start:from": "tsx collect.ts --start-from="
   },
   "dependencies": {},
   "devDependencies": {
