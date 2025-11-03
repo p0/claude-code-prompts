@@ -1,0 +1,61 @@
+name: Collect Claude Code Versions
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for git log checks
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get latest processed version
+        id: latest-version
+        run: |
+          LATEST=$(git log --oneline --grep="Add metadata for @anthropic-ai/claude-code@" | head -1 | sed 's/.*@anthropic-ai\/claude-code@//' || echo "1.0.0")
+          echo "version=$LATEST" >> $GITHUB_OUTPUT
+          echo "Latest processed version: $LATEST"
+
+      - name: Collect new versions
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm start -- --start-from=${{ steps.latest-version.outputs.version }}
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          NEW_COMMITS=$(git log --oneline --grep="Add metadata for @anthropic-ai/claude-code@" origin/main..HEAD | wc -l || echo "0")
+          if [ "$NEW_COMMITS" -gt 0 ]; then
+            echo "✅ Collected $NEW_COMMITS new version(s)"
+            git log --oneline --grep="Add metadata for @anthropic-ai/claude-code@" origin/main..HEAD
+          else
+            echo "ℹ️ No new versions found"
+          fi
