@@ -10,7 +10,6 @@ Before using this tool, ensure your plan is clear and unambiguous. If there are 
 3. Clarify any assumptions that could affect the implementation
 4. Only proceed with ExitPlanMode after resolving ambiguities
 
-
 ## Examples
 
 1. Initial task: "Search for and understand the implementation of vim mode in the codebase" - Do not use the exit plan mode tool because you are not planning the implementation steps of a task.
