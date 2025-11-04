@@ -41,13 +41,16 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: npm start -- --start-from=${{ steps.latest-version.outputs.version }}
 
-      - name: Check for changes
+      - name: Check for new commits
         id: git-check
         run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+          # Check if there are commits ahead of origin/main
+          if [ $(git rev-list HEAD...origin/main --count) -gt 0 ]; then
+            echo "has_commits=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Push changes
-        if: steps.git-check.outputs.changes == 'true'
+        if: steps.git-check.outputs.has_commits == 'true'
         run: git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
