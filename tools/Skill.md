@@ -31,13 +31,13 @@ Important:
 {
   "type": "object",
   "properties": {
-    "command": {
+    "skill": {
       "type": "string",
       "description": "The skill name (no arguments). E.g., \"pdf\" or \"xlsx\""
     }
   },
   "required": [
-    "command"
+    "skill"
   ],
   "additionalProperties": false,
   "$schema": "http://json-schema.org/draft-07/schema#"
