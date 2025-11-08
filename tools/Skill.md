@@ -10,9 +10,9 @@ How to use skills:
 - When you invoke a skill, you will see <command-message>The "{name}" skill is loading</command-message>
 - The skill's prompt will expand and provide detailed instructions on how to complete the task
 - Examples:
-  - `command: "pdf"` - invoke the pdf skill
-  - `command: "xlsx"` - invoke the xlsx skill
-  - `command: "ms-office-suite:pdf"` - invoke using fully qualified name
+  - `skill: "pdf"` - invoke the pdf skill
+  - `skill: "xlsx"` - invoke the xlsx skill
+  - `skill: "ms-office-suite:pdf"` - invoke using fully qualified name
 
 Important:
 - Only use skills listed in <available_skills> below

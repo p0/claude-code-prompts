@@ -2,9 +2,6 @@
 
 Execute a slash command within the main conversation
 
-**IMPORTANT - Intent Matching:**
-Before starting any task, CHECK if the user's request matches one of the slash commands listed below. This tool exists to route user intentions to specialized workflows.
-
 How slash commands work:
 When you use this tool or when a user types a slash command, you will see <command-message>{name} is running…</command-message> followed by the expanded prompt. For example, if .claude/commands/foo.md contains "Print today's date", then /foo expands to that prompt in the next message.
 
