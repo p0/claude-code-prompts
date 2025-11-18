@@ -7,7 +7,7 @@
 - Returns stdout and stderr output along with shell status
 - Supports optional regex filtering to show only lines matching a pattern
 - Use this tool when you need to monitor or check the output of a long-running shell
-- Shell IDs can be found using the /bashes command
+- Shell IDs can be found using the /tasks command
 
 
 ## Input Schema

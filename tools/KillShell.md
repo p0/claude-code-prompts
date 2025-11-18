@@ -5,7 +5,7 @@
 - Takes a shell_id parameter identifying the shell to kill
 - Returns a success or failure status 
 - Use this tool when you need to terminate a long-running shell
-- Shell IDs can be found using the /bashes command
+- Shell IDs can be found using the /tasks command
 
 
 ## Input Schema
