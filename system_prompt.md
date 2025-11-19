@@ -115,11 +115,11 @@ assistant: [Uses the Task tool with subagent_type=Explore]
 
 Here is useful information about the environment you are running in:
 <env>
-Working directory: /tmp/claude-code-2.0.45
+Working directory: /tmp/claude-code-2.0.46
 Is directory a git repo: No
 Platform: linux
 OS Version: Linux 6.11.0-1018-azure
-Today's date: 2025-11-18
+Today's date: 2025-11-19
 </env>
 You are powered by the model named Sonnet 4.5. The exact model ID is claude-sonnet-4-5-20250929.
 
