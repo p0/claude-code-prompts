@@ -78,7 +78,7 @@ Git Safety Protocol:
    - Run git status after the commit completes to verify success.
    Note: git status depends on the commit completing, so run it sequentially after the commit.
 4. If the commit fails due to pre-commit hook changes, retry ONCE. If it succeeds but files were modified by the hook, verify it's safe to amend:
-   - Check authorship: git log -1 --format='%an %ae'
+   - Check HEAD commit: git log -1 --format='[%h] (%an <%ae>) %s'. VERIFY it matches your commit
    - Check not pushed: git status shows "Your branch is ahead"
    - If both true: amend your commit. Otherwise: create NEW commit (never amend other developers' commits)
 

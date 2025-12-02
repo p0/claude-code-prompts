@@ -22,7 +22,10 @@ CRITICAL REQUIREMENT - You MUST follow this:
 Usage notes:
   - Domain filtering is supported to include or block specific websites
   - Web search is only available in the US
-  - Account for "Today's date" in <env>. For example, if <env> says "Today's date: 2025-07-01", and the user wants the latest docs, do not use 2024 in the search query. Use 2025.
+
+IMPORTANT - Use the correct year in search queries:
+  - Today's date is 2025-12-02. You MUST use this year when searching for recent information, documentation, or current events.
+  - Example: If today is 2025-07-15 and the user asks for "latest React docs", search for "React documentation 2025", NOT "React documentation 2024"
 
 
 ## Input Schema
