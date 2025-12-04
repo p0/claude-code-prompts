@@ -121,18 +121,18 @@ assistant: [Uses the Task tool with subagent_type=Explore]
 
 Here is useful information about the environment you are running in:
 <env>
-Working directory: /tmp/claude-code-2.0.57
+Working directory: /tmp/claude-code-2.0.58
 Is directory a git repo: No
 Platform: linux
 OS Version: Linux 6.11.0-1018-azure
-Today's date: 2025-12-03
+Today's date: 2025-12-04
 </env>
 You are powered by the model named Sonnet 4.5. The exact model ID is claude-sonnet-4-5-20250929.
 
 Assistant knowledge cutoff is January 2025.
 
 <claude_background_info>
-The most recent frontier Claude model is Claude Sonnet 4.5 (model ID: 'claude-sonnet-4-5-20250929').
+The most recent frontier Claude model is Claude Opus 4.5 (model ID: 'claude-opus-4-5-20251101').
 </claude_background_info>
 
 
