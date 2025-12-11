@@ -22,7 +22,7 @@ When NOT to use the Task tool:
 Usage notes:
 - Launch multiple agents concurrently whenever possible, to maximize performance; to do that, use a single message with multiple tool uses
 - When the agent is done, it will return a single message back to you. The result returned by the agent is not visible to the user. To show the user the result, you should send a text message back to the user with a concise summary of the result.
-- You can optionally run agents in the background using the run_in_background parameter. When an agent runs in the background, you will need to use AgentOutputTool to retrieve its results once it's done. You can continue to work while background agents run - When you need their results to continue you can use AgentOutputTool in blocking mode to pause and wait for their results.
+- You can optionally run agents in the background using the run_in_background parameter. When an agent runs in the background, you will need to use TaskOutput to retrieve its results once it's done. You can continue to work while background agents run - When you need their results to continue you can use TaskOutput in blocking mode to pause and wait for their results.
 - Agents can be resumed using the `resume` parameter by passing the agent ID from a previous invocation. When resumed, the agent continues with its full previous context preserved. When NOT resuming, each invocation starts fresh and you should provide a detailed task description with all necessary context.
 - When the agent is done, it will return a single message back to you along with its agent ID. You can use this ID to resume the agent later if needed for follow-up work.
 - Provide clear, detailed prompts so the agent can work autonomously and return exactly the information you need.
@@ -102,7 +102,7 @@ assistant: "I'm going to use the Task tool to launch the greeting-responder agen
     },
     "run_in_background": {
       "type": "boolean",
-      "description": "Set to true to run this agent in the background. Use AgentOutputTool to read the output later."
+      "description": "Set to true to run this agent in the background. Use TaskOutput to read the output later."
     }
   },
   "required": [

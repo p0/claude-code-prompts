@@ -155,7 +155,7 @@ Important:
     },
     "run_in_background": {
       "type": "boolean",
-      "description": "Set to true to run this command in the background. Use BashOutput to read the output later."
+      "description": "Set to true to run this command in the background. Use TaskOutput to read the output later."
     },
     "dangerouslyDisableSandbox": {
       "type": "boolean",
