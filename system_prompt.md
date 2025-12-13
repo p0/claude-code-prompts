@@ -138,7 +138,7 @@ assistant: Clients are marked as failed in the `connectToServer` function in src
 
 Here is useful information about the environment you are running in:
 <env>
-Working directory: /tmp/claude-code-2.0.68
+Working directory: /tmp/claude-code-2.0.69
 Is directory a git repo: No
 Platform: linux
 OS Version: Linux 6.11.0-1018-azure
