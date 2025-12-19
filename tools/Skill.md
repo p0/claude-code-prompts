@@ -5,11 +5,19 @@ Execute a skill within the main conversation
 <skills_instructions>
 When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.
 
+When users ask you to run a "slash command" or reference "/<something>" (e.g., "/commit", "/review-pr"), they are referring to a skill. Use this tool to invoke the corresponding skill.
+
+<example>
+User: "run /commit"
+Assistant: [Calls Skill tool with skill: "commit"]
+</example>
+
 How to invoke:
-- Use this tool with the skill name only (no arguments)
+- Use this tool with the skill name and optional arguments
 - Examples:
   - `skill: "pdf"` - invoke the pdf skill
-  - `skill: "xlsx"` - invoke the xlsx skill
+  - `skill: "commit", args: "-m 'Fix bug'"` - invoke with arguments
+  - `skill: "review-pr", args: "123"` - invoke with arguments
   - `skill: "ms-office-suite:pdf"` - invoke using fully qualified name
 
 Important:
@@ -34,7 +42,11 @@ Important:
   "properties": {
     "skill": {
       "type": "string",
-      "description": "The skill name (no arguments). E.g., \"pdf\" or \"xlsx\""
+      "description": "The skill name. E.g., \"commit\", \"review-pr\", or \"pdf\""
+    },
+    "args": {
+      "type": "string",
+      "description": "Optional arguments for the skill"
     }
   },
   "required": [
