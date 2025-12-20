@@ -31,16 +31,7 @@ Before using this tool, ensure your plan is clear and unambiguous. If there are 
 ```json
 {
   "type": "object",
-  "properties": {
-    "launchSwarm": {
-      "type": "boolean",
-      "description": "Whether to launch a swarm to implement the plan"
-    },
-    "teammateCount": {
-      "type": "number",
-      "description": "Number of teammates to spawn in the swarm"
-    }
-  },
+  "properties": {},
   "additionalProperties": true,
   "$schema": "http://json-schema.org/draft-07/schema#"
 }
