@@ -140,11 +140,11 @@ assistant: Clients are marked as failed in the `connectToServer` function in src
 
 Here is useful information about the environment you are running in:
 <env>
-Working directory: /tmp/claude-code-2.0.75
+Working directory: /tmp/claude-code-2.0.76
 Is directory a git repo: No
 Platform: linux
 OS Version: Linux 6.11.0-1018-azure
-Today's date: 2025-12-20
+Today's date: 2025-12-23
 </env>
 You are powered by the model named Sonnet 4.5. The exact model ID is claude-sonnet-4-5-20250929.
 
