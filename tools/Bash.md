@@ -25,7 +25,7 @@ Usage notes:
   - You can specify an optional timeout in milliseconds (up to 600000ms / 10 minutes). If not specified, commands will timeout after 120000ms (2 minutes).
   - It is very helpful if you write a clear, concise description of what this command does in 5-10 words.
   - If the output exceeds 30000 characters, output will be truncated before being returned to you.
-  - You can use the `run_in_background` parameter to run the command in the background, which allows you to continue working while the command runs. You can monitor the output using the Bash tool as it becomes available. You do not need to use '&' at the end of the command when using this parameter.
+  - You can use the `run_in_background` parameter to run the command in the background. Only use this if you don't need the result immediately and are OK being notified when the command completes later. You do not need to check the output right away - you'll be notified when it finishes. You do not need to use '&' at the end of the command when using this parameter.
   
   - Avoid using Bash with the `find`, `grep`, `cat`, `head`, `tail`, `sed`, `awk`, or `echo` commands, unless explicitly instructed or when these commands are truly necessary for the task. Instead, always prefer using the dedicated tools for these commands:
     - File search: Use Glob (NOT find or ls)
@@ -53,7 +53,7 @@ Only create commits when requested by the user. If unclear, ask first. When the 
 
 Git Safety Protocol:
 - NEVER update the git config
-- NEVER run destructive/irreversible git commands (like push --force, hard reset, etc) unless the user explicitly requests them 
+- NEVER run destructive/irreversible git commands (like push --force, hard reset, etc) unless the user explicitly requests them
 - NEVER skip hooks (--no-verify, --no-gpg-sign, etc) unless the user explicitly requests it
 - NEVER run force push to main/master, warn the user if they request it
 - Avoid git commit --amend. ONLY use --amend when ALL conditions are met:
@@ -76,8 +76,6 @@ Git Safety Protocol:
 3. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following commands:
    - Add relevant untracked files to the staging area.
    - Create the commit with a message ending with:
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
    Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
    - Run git status after the commit completes to verify success.
    Note: git status depends on the commit completing, so run it sequentially after the commit.
@@ -93,8 +91,6 @@ Important notes:
 <example>
 git commit -m "$(cat <<'EOF'
    Commit message here.
-
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
    Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
    EOF
@@ -140,33 +136,33 @@ Important:
 
 ```json
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
     "command": {
-      "type": "string",
-      "description": "The command to execute"
+      "description": "The command to execute",
+      "type": "string"
     },
     "timeout": {
-      "type": "number",
-      "description": "Optional timeout in milliseconds (max 600000)"
+      "description": "Optional timeout in milliseconds (max 600000)",
+      "type": "number"
     },
     "description": {
-      "type": "string",
-      "description": "Clear, concise description of what this command does in 5-10 words, in active voice. Examples:\nInput: ls\nOutput: List files in current directory\n\nInput: git status\nOutput: Show working tree status\n\nInput: npm install\nOutput: Install package dependencies\n\nInput: mkdir foo\nOutput: Create directory 'foo'"
+      "description": "Clear, concise description of what this command does in 5-10 words, in active voice. Examples:\nInput: ls\nOutput: List files in current directory\n\nInput: git status\nOutput: Show working tree status\n\nInput: npm install\nOutput: Install package dependencies\n\nInput: mkdir foo\nOutput: Create directory 'foo'",
+      "type": "string"
     },
     "run_in_background": {
-      "type": "boolean",
-      "description": "Set to true to run this command in the background. Use TaskOutput to read the output later."
+      "description": "Set to true to run this command in the background. Use TaskOutput to read the output later.",
+      "type": "boolean"
     },
     "dangerouslyDisableSandbox": {
-      "type": "boolean",
-      "description": "Set this to true to dangerously override sandbox mode and run commands without sandboxing."
+      "description": "Set this to true to dangerously override sandbox mode and run commands without sandboxing.",
+      "type": "boolean"
     }
   },
   "required": [
     "command"
   ],
-  "additionalProperties": false,
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "additionalProperties": false
 }
 ```
