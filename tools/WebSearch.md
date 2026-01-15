@@ -24,8 +24,8 @@ Usage notes:
   - Web search is only available in the US
 
 IMPORTANT - Use the correct year in search queries:
-  - Today's date is 2026-01-14. You MUST use this year when searching for recent information, documentation, or current events.
-  - Example: If today is 2025-07-15 and the user asks for "latest React docs", search for "React documentation 2025", NOT "React documentation 2024"
+  - Today's date is 2026-01-15. You MUST use this year when searching for recent information, documentation, or current events.
+  - Example: If the user asks for "latest React docs", search for "React documentation 2026", NOT "React documentation 2025"
 
 
 ## Input Schema
