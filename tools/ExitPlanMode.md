@@ -91,6 +91,18 @@ Ensure your plan is complete and unambiguous:
         ],
         "additionalProperties": false
       }
+    },
+    "pushToRemote": {
+      "description": "Whether to push the plan to a remote Claude.ai session",
+      "type": "boolean"
+    },
+    "remoteSessionId": {
+      "description": "The remote session ID if pushed to remote",
+      "type": "string"
+    },
+    "remoteSessionUrl": {
+      "description": "The remote session URL if pushed to remote",
+      "type": "string"
     }
   },
   "additionalProperties": {}
