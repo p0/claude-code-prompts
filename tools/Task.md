@@ -112,6 +112,26 @@ assistant: "I'm going to use the Task tool to launch the greeting-responder agen
       "type": "integer",
       "exclusiveMinimum": 0,
       "maximum": 9007199254740991
+    },
+    "name": {
+      "description": "Name for the spawned agent",
+      "type": "string"
+    },
+    "team_name": {
+      "description": "Team name for spawning. Uses current team context if omitted.",
+      "type": "string"
+    },
+    "mode": {
+      "description": "Permission mode for spawned teammate (e.g., \"plan\" to require plan approval).",
+      "type": "string",
+      "enum": [
+        "acceptEdits",
+        "bypassPermissions",
+        "default",
+        "delegate",
+        "dontAsk",
+        "plan"
+      ]
     }
   },
   "required": [
