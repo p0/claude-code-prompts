@@ -72,14 +72,6 @@ Ensure your plan is complete and unambiguous:
     "remoteSessionTitle": {
       "description": "The remote session title if pushed to remote",
       "type": "string"
-    },
-    "launchSwarm": {
-      "description": "Whether to launch a swarm to implement the plan",
-      "type": "boolean"
-    },
-    "teammateCount": {
-      "description": "Number of teammates to spawn in the swarm",
-      "type": "number"
     }
   },
   "additionalProperties": {}
