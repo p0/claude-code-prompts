@@ -112,13 +112,6 @@ assistant: "I'm going to use the Task tool to launch the greeting-responder agen
       "type": "integer",
       "exclusiveMinimum": 0,
       "maximum": 9007199254740991
-    },
-    "allowed_tools": {
-      "description": "Tools to grant this agent. User will be prompted to approve if not already allowed. Example: [\"Bash(git commit*)\", \"Read\"]",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     }
   },
   "required": [
