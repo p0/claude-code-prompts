@@ -49,6 +49,10 @@ A powerful search tool built on ripgrep
       "type": "number"
     },
     "-C": {
+      "description": "Alias for context.",
+      "type": "number"
+    },
+    "context": {
       "description": "Number of lines to show before and after each match (rg -C). Requires output_mode: \"content\", ignored otherwise.",
       "type": "number"
     },
