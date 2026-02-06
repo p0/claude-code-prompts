@@ -30,7 +30,7 @@ Usage:
       "type": "string"
     },
     "replace_all": {
-      "description": "Replace all occurences of old_string (default false)",
+      "description": "Replace all occurrences of old_string (default false)",
       "default": false,
       "type": "boolean"
     }
