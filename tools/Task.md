@@ -38,8 +38,8 @@ Example usage:
 
 <example_agent_descriptions>
 "test-runner": use this agent after you are done writing code to run tests
-"greeting-responder": use this agent when to respond to user greetings with a friendly joke
-</example_agent_description>
+"greeting-responder": use this agent to respond to user greetings with a friendly joke
+</example_agent_descriptions>
 
 <example>
 user: "Please write a function that checks if a number is prime"
