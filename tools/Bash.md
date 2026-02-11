@@ -158,23 +158,6 @@ Important:
     "dangerouslyDisableSandbox": {
       "description": "Set this to true to dangerously override sandbox mode and run commands without sandboxing.",
       "type": "boolean"
-    },
-    "_simulatedSedEdit": {
-      "description": "Internal: pre-computed sed edit result from preview",
-      "type": "object",
-      "properties": {
-        "filePath": {
-          "type": "string"
-        },
-        "newContent": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "filePath",
-        "newContent"
-      ],
-      "additionalProperties": false
     }
   },
   "required": [
