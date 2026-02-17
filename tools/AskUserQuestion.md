@@ -13,6 +13,15 @@ Usage notes:
 
 Plan mode note: In plan mode, use this tool to clarify requirements or choose between approaches BEFORE finalizing your plan. Do NOT use this tool to ask "Is my plan ready?" or "Should I proceed?" - use ExitPlanMode for plan approval.
 
+Preview feature:
+Use the optional `markdown` field on options when presenting concrete artifacts that users need to visually compare:
+- ASCII mockups of UI layouts or components
+- Code snippets showing different implementations
+- Diagram variations
+- Configuration examples
+
+When any option has a markdown, the UI switches to a side-by-side layout with a vertical option list on the left and preview on the right. Do not use previews for simple preference questions where labels and descriptions suffice. Note: previews are only supported for single-select questions (not multiSelect).
+
 
 ## Input Schema
 
@@ -52,6 +61,10 @@ Plan mode note: In plan mode, use this tool to clarify requirements or choose be
                 "description": {
                   "description": "Explanation of what this option means or what will happen if chosen. Useful for providing context about trade-offs or implications.",
                   "type": "string"
+                },
+                "markdown": {
+                  "description": "Optional preview content shown in a monospace box when this option is focused. Use for ASCII mockups, code snippets, or diagrams that help users visually compare options. Supports multi-line text with newlines.",
+                  "type": "string"
                 }
               },
               "required": [
@@ -84,6 +97,27 @@ Plan mode note: In plan mode, use this tool to clarify requirements or choose be
       },
       "additionalProperties": {
         "type": "string"
+      }
+    },
+    "annotations": {
+      "description": "Optional per-question annotations from the user (e.g., notes on preview selections). Keyed by question text.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "description": "The markdown preview content of the selected option, if the question used previews.",
+            "type": "string"
+          },
+          "notes": {
+            "description": "Free-text notes the user added to their selection.",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
       }
     },
     "metadata": {
