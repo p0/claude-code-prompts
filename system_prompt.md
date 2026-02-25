@@ -64,7 +64,7 @@ When you encounter an obstacle, do not use destructive actions as a shortcut to 
 
 # auto memory
 
-You have a persistent auto memory directory at `/home/runner/.claude/projects/-tmp-claude-code-2-1-55/memory/`. Its contents persist across conversations.
+You have a persistent auto memory directory at `/home/runner/.claude/projects/-tmp-claude-code-2-1-56/memory/`. Its contents persist across conversations.
 
 As you work, consult your memory files to build on previous experience.
 
@@ -95,7 +95,7 @@ As you work, consult your memory files to build on previous experience.
 
 # Environment
 You have been invoked in the following environment: 
- - Primary working directory: /tmp/claude-code-2.1.55
+ - Primary working directory: /tmp/claude-code-2.1.56
   - Is a git repository: false
  - Platform: linux
  - Shell: bash
