@@ -28,7 +28,6 @@ Usage notes:
 - Agents can be resumed using the `resume` parameter by passing the agent ID from a previous invocation. When resumed, the agent continues with its full previous context preserved. When NOT resuming, each invocation starts fresh and you should provide a detailed task description with all necessary context.
 - When the agent is done, it will return a single message back to you along with its agent ID. You can use this ID to resume the agent later if needed for follow-up work.
 - Provide clear, detailed prompts so the agent can work autonomously and return exactly the information you need.
-- Agents with "access to current context" can see the full conversation history before the tool call. When using these agents, you can write concise prompts that reference earlier context (e.g., "investigate the error discussed above") instead of repeating information. The agent will receive all prior messages and understand the context.
 - The agent's outputs should generally be trusted
 - Clearly tell the agent whether you expect it to write code or just to do research (search, file reads, web fetches, etc.), since it is not aware of the user's intent
 - If the agent description mentions that it should be used proactively, then you should try your best to use it without the user having to ask for it first. Use your judgement.
@@ -91,15 +90,6 @@ assistant: "I'm going to use the Agent tool to launch the greeting-responder age
       "description": "The type of specialized agent to use for this task",
       "type": "string"
     },
-    "model": {
-      "description": "Optional model to use for this agent. If not specified, inherits from parent. Prefer haiku for quick, straightforward tasks to minimize cost and latency.",
-      "type": "string",
-      "enum": [
-        "sonnet",
-        "opus",
-        "haiku"
-      ]
-    },
     "resume": {
       "description": "Optional agent ID to resume from. If provided, the agent will continue from the previous execution transcript.",
       "type": "string"
@@ -107,12 +97,6 @@ assistant: "I'm going to use the Agent tool to launch the greeting-responder age
     "run_in_background": {
       "description": "Set to true to run this agent in the background. The tool result will include an output_file path - use Read tool or Bash tail to check on output.",
       "type": "boolean"
-    },
-    "max_turns": {
-      "description": "Maximum number of agentic turns (API round-trips) before stopping. Used internally for warmup.",
-      "type": "integer",
-      "exclusiveMinimum": 0,
-      "maximum": 9007199254740991
     },
     "isolation": {
       "description": "Isolation mode. \"worktree\" creates a temporary git worktree so the agent works on an isolated copy of the repo.",
