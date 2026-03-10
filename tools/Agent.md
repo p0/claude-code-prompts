@@ -87,6 +87,15 @@ assistant: "I'm going to use the Agent tool to launch the greeting-responder age
       "description": "The type of specialized agent to use for this task",
       "type": "string"
     },
+    "model": {
+      "description": "Optional model override for this agent. Takes precedence over the agent definition's model frontmatter. If omitted, uses the agent definition's model, or inherits from the parent.",
+      "type": "string",
+      "enum": [
+        "sonnet",
+        "opus",
+        "haiku"
+      ]
+    },
     "resume": {
       "description": "Optional agent ID to resume from. If provided, the agent will continue from the previous execution transcript.",
       "type": "string"
