@@ -25,8 +25,7 @@ Usage notes:
 - When the agent is done, it will return a single message back to you. The result returned by the agent is not visible to the user. To show the user the result, you should send a text message back to the user with a concise summary of the result.
 - You can optionally run agents in the background using the run_in_background parameter. When an agent runs in the background, you will be automatically notified when it completes — do NOT sleep, poll, or proactively check on its progress. Continue with other work or respond to the user instead.
 - **Foreground vs background**: Use foreground (default) when you need the agent's results before you can proceed — e.g., research agents whose findings inform your next steps. Use background when you have genuinely independent work to do in parallel.
-- Agents can be resumed using the `resume` parameter by passing the agent ID from a previous invocation. When resumed, the agent continues with its full previous context preserved. When NOT resuming, each invocation starts fresh and you should provide a detailed task description with all necessary context.
-- When the agent is done, it will return a single message back to you along with its agent ID. You can use this ID to resume the agent later if needed for follow-up work.
+- To continue a previously spawned agent, use SendMessage with the agent's ID or name as the `to` field. The agent resumes with its full context preserved. Each Agent invocation starts fresh — provide a complete task description.
 - Provide clear, detailed prompts so the agent can work autonomously and return exactly the information you need.
 - The agent's outputs should generally be trusted
 - Clearly tell the agent whether you expect it to write code or just to do research (search, file reads, web fetches, etc.), since it is not aware of the user's intent
@@ -95,10 +94,6 @@ assistant: "I'm going to use the Agent tool to launch the greeting-responder age
         "opus",
         "haiku"
       ]
-    },
-    "resume": {
-      "description": "Optional agent ID to resume from. If provided, the agent will continue from the previous execution transcript.",
-      "type": "string"
     },
     "run_in_background": {
       "description": "Set to true to run this agent in the background. You will be notified when it completes.",
