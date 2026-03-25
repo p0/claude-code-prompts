@@ -37,10 +37,8 @@ Use this tool ONLY when the user explicitly asks to work in a worktree. This too
   "type": "object",
   "properties": {
     "name": {
-      "description": "Optional name for the worktree (letters, digits, dots, underscores, dashes only; max 64 chars). A random name is generated if not provided.",
-      "type": "string",
-      "maxLength": 64,
-      "pattern": "^[a-zA-Z0-9._-]+$"
+      "description": "Optional name for the worktree. Each \"/\"-separated segment may contain only letters, digits, dots, underscores, and dashes; max 64 chars total. A random name is generated if not provided.",
+      "type": "string"
     }
   },
   "additionalProperties": false

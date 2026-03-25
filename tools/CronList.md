@@ -1,6 +1,6 @@
 # CronList
 
-List all cron jobs scheduled via CronCreate in this session.
+List all cron jobs scheduled via CronCreate, both durable (.claude/scheduled_tasks.json) and session-only.
 
 ## Input Schema
 

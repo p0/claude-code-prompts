@@ -143,7 +143,7 @@ Important:
       "type": "string"
     },
     "run_in_background": {
-      "description": "Set to true to run this command in the background. Use TaskOutput to read the output later.",
+      "description": "Set to true to run this command in the background. Use Read to read the output later.",
       "type": "boolean"
     },
     "dangerouslyDisableSandbox": {

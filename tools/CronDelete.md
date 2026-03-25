@@ -1,6 +1,6 @@
 # CronDelete
 
-Cancel a cron job previously scheduled with CronCreate. Removes it from the in-memory session store.
+Cancel a cron job previously scheduled with CronCreate. Removes it from .claude/scheduled_tasks.json (durable jobs) or the in-memory session store (session-only jobs).
 
 ## Input Schema
 
