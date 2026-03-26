@@ -28,8 +28,7 @@ NOTE that you should not use this tool if there is only one trivial task to do. 
 
 <example>
 User: I want to add a dark mode toggle to the application settings. Make sure you run the tests and build when you're done!
-Assistant: I'll help add a dark mode toggle to your application settings. Let me create a todo list to track this implementation.
-*Creates todo list with the following items:*
+Assistant: *Creates todo list with the following items:*
 1. Creating dark mode toggle component in Settings page
 2. Adding dark mode state management (context/store)
 3. Implementing CSS-in-JS styles for dark theme
@@ -47,9 +46,8 @@ The assistant used the todo list because:
 
 <example>
 User: Help me rename the function getCwd to getCurrentWorkingDirectory across my project
-Assistant: Let me first search through your codebase to find all occurrences of 'getCwd'.
-*Uses grep or search tools to locate all instances of getCwd in the codebase*
-Assistant: I've found 15 instances of 'getCwd' across 8 different files. Let me create a todo list to track these changes.
+Assistant: *Uses grep or search tools to locate all instances of getCwd in the codebase*
+I've found 15 instances of 'getCwd' across 8 different files.
 *Creates todo list with specific items for each file that needs updating*
 
 <reasoning>
@@ -64,9 +62,8 @@ The assistant used the todo list because:
 
 <example>
 User: I need to implement these features for my e-commerce site: user registration, product catalog, shopping cart, and checkout flow.
-Assistant: I'll help implement these features. First, let's add all the features to the todo list.
-*Creates a todo list breaking down each feature into specific tasks based on the project architecture*
-Assistant: Let's start with user registration. This will involve creating database models, API endpoints, and frontend forms that integrate with your existing authentication system.
+Assistant: *Creates a todo list breaking down each feature into specific tasks based on the project architecture*
+Let's start with user registration. This will involve creating database models, API endpoints, and frontend forms that integrate with your existing authentication system.
 
 <reasoning>
 The assistant used the todo list because:
@@ -78,9 +75,8 @@ The assistant used the todo list because:
 
 <example>
 User: Can you help optimize my React application? It's rendering slowly and has performance issues.
-Assistant: I'll help optimize your React application. First, let me examine your codebase to identify potential performance bottlenecks.
-*Reviews component structure, render patterns, state management, and data fetching*
-Assistant: After analyzing your codebase, I've identified several performance issues. Let me create a todo list to track our optimization efforts.
+Assistant: *Reviews component structure, render patterns, state management, and data fetching*
+After analyzing your codebase, I've identified several performance issues.
 *Creates todo list with items like: 1) Implementing memoization for expensive calculations in ProductList, 2) Adding virtualization for long lists in Dashboard, 3) Optimizing image loading in Gallery component, 4) Fixing state update loops in ShoppingCart, 5) Reviewing bundle size and implementing code splitting*
 Let's start by implementing memoization for the expensive calculations in your ProductList component.
 
