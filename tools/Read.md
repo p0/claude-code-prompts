@@ -28,11 +28,15 @@ Usage:
     },
     "offset": {
       "description": "The line number to start reading from. Only provide if the file is too large to read at once",
-      "type": "number"
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
     },
     "limit": {
       "description": "The number of lines to read. Only provide if the file is too large to read at once.",
-      "type": "number"
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
     },
     "pages": {
       "description": "Page range for PDF files (e.g., \"1-5\", \"3\", \"10-20\"). Only applicable to PDF files. Maximum 20 pages per request.",
